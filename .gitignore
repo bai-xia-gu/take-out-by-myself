@@ -37,3 +37,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### 本地私有配置与运行产物 ###
+src/main/resources/application-local.yml
+uploads/
+logs/
