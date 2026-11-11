@@ -1,9 +1,29 @@
 package com.baixiagu.takeout.common;
 
-/**
- * 业务异常，由 GlobalExceptionHandler 统一转换为 Result
- */
-public class BizException {
+import lombok.Getter;
 
-    // TODO
+/** 业务异常：Service 层只抛它，不抛 RuntimeException("...") */
+@Getter
+public class BizException extends RuntimeException {
+
+    private final ErrorCode errorCode;
+    private final Object data;
+
+    public BizException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
+        this.data = null;
+    }
+
+    public BizException(ErrorCode errorCode, String message) {
+        super(message);
+        this.errorCode = errorCode;
+        this.data = null;
+    }
+
+    public BizException(ErrorCode errorCode, String message, Object data) {
+        super(message);
+        this.errorCode = errorCode;
+        this.data = data;
+    }
 }

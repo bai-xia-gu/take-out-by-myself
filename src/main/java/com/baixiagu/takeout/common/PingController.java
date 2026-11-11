@@ -1,16 +1,21 @@
 package com.baixiagu.takeout.common;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 服务存活检查
- */
-@Tag(name = "自检")
+import java.time.LocalDateTime;
+import java.util.Map;
+
+
+//这是服务的"心跳接口"，用来确认你的后端是否活着、是否正常响应请求。
 @RestController
-@RequestMapping("/ping")
 public class PingController {
 
-    // TODO 按接口契约逐步实现
+    @GetMapping("/ping")
+    public Result<Map<String, Object>> ping() {
+        return Result.ok(Map.of(
+                "status", "ok",
+                "time", LocalDateTime.now()
+        ));
+    }
 }
