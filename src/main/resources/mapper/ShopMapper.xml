@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baixiagu.takeout.shop.mapper.ShopMapper">
 
-    <!-- TODO 对应表：shop 表 -->
-
+    <!-- 根据ID查询店铺详情 -->
+    <select id="selectAdminShop" resultType="com.baixiagu.takeout.shop.vo.ShopVO">
+    SELECT  s.id           AS shopId,
+            s.name         AS name,
+            s.cover_url    AS coverUrl,
+            s.logo_url     AS logoUrl,
+            s.rating       AS rating,
+            s.month_sales  AS monthSales,
+            s.min_order_amount AS minOrderAmount,
+            s.delivery_fee AS deliveryFee,
+            s.estimated_minutes AS estimatedMinutes,
+            s.business_status  AS businessStatus,
+            s.next_open_time   AS nextOpenTime,
+            s.category_id      AS categoryId,
+            c.name             AS categoryName,
+            s.notice           AS notice
+    from shop s
+    left join category c on c.id = s.category_id
+    where s.id = #{shopId} and s.deleted = 0  <!-- 未删除 -->
+    </select>
 </mapper>

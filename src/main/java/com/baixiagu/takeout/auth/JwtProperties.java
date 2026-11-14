@@ -13,4 +13,11 @@ import org.springframework.stereotype.Component;
 public class JwtProperties {
 
     // TODO 按 application.yml 补字段
+    private String secret = "zhisu-waimai-local-dev-secret-key-0123456789";
+
+    private int expireDays = 7;
+
+    public long getExpireMillis() {
+        return (long) expireDays * 24 * 60 * 60;
+    }
 }

@@ -1,6 +1,8 @@
 package com.baixiagu.takeout.shop.mapper;
 
+import com.baixiagu.takeout.shop.vo.ShopVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * shop 表
@@ -8,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ShopMapper {
 
-    // TODO 方法名与 resources/mapper/ShopMapper.xml 的 id 一一对应
+    ShopVO selectAdminShop(@Param("shopId") Long shopId);
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baixiagu.takeout.merchant.mapper.MerchantMapper">
+
+    <sql id="baseColumns">
+        id, account, password_hash, salt, name, shop_id, role, created_at, updated_at
+    </sql>
+
+    <!-- 根据账号查询商户 -->
+    <select id="selectByAccount" resultType="com.baixiagu.takeout.merchant.entity.Merchant">
+        select <include refid="baseColumns"/>
+        from merchant
+        where account = #{account} and deleted = 0  <!-- 未删除 -->
+        limit 1
+    </select>
+
+    <!-- 根据ID查询商户 -->
+    <select id="selectById" resultType="com.baixiagu.takeout.merchant.entity.Merchant">
+        select <include refid="baseColumns"/>
+        from merchant
+        where id = #{id} and deleted = 0  <!-- 未删除 -->
+        limit 1
+    </select>
+</mapper>
