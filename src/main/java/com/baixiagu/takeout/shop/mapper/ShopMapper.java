@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface ShopMapper {
-
+    // 店长登录查询店铺信息
     ShopVO selectAdminShop(@Param("shopId") Long shopId);
 }

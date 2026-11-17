@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "takeout.jwt")
 public class JwtProperties {
 
-    // TODO 按 application.yml 补字段
+
     private String secret = "zhisu-waimai-local-dev-secret-key-0123456789";
 
     private int expireDays = 7;
