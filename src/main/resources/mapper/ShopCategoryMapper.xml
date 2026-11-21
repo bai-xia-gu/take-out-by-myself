@@ -2,6 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baixiagu.takeout.shop.mapper.ShopCategoryMapper">
 
-    <!-- TODO 对应表：shop_category 关联表 -->
 
+    <!-- 插入分类 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into takeout.shop_category (shop_id,name,sort)
+        values (#{shopId},#{name},#{sort})
+    </insert>
+
+
+    <!-- 查询店铺下的所有分类，包含分类下的商品数量 -->
+    <select id="selectByShop" resultType="com.baixiagu.takeout.merchant.vo.AdminCategoryVO">
+
+    select sc.id as categoryId,
+           sc.name as name,
+           (select count(*)from product p
+                            where p.shop_id = sc.shop_id
+                            and p.category_id = sc.id
+                            and p.deleted = 0) as productCount
+    from shop_category sc
+    where sc.shop_id = #{shopId}
+    and sc.deleted = 0
+    order by sc.sort,sc.id
+
+
+    </select>
+
+    <!-- 查询店铺下的分类数量 -->
+    <select id="countByName" resultType="int">
+        select count(*)
+        from takeout.shop_category
+        where shop_id = #{shopId}
+        and name = #{name}
+        and deleted = 0
+        <if test="excludeId != null">
+            and id != #{excludeId}
+        </if>
+    </select>
+
+    <!-- 查询店铺下的最大排序值 -->
+    <select id="selectMaxSort" resultType="int">
+        select coalesce(max(sort),0)
+        from takeout.shop_category
+        where shop_id = #{shopId}
+        and deleted = 0
+    </select>
 </mapper>
