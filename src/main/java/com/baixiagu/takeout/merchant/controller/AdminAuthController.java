@@ -4,9 +4,11 @@ import com.baixiagu.takeout.common.Result;
 import com.baixiagu.takeout.merchant.dto.AdminLoginRequest;
 import com.baixiagu.takeout.merchant.service.AdminAuthService;
 import com.baixiagu.takeout.merchant.vo.AdminLoginVO;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminAuthController {
     private final AdminAuthService adminAuthService;
 
+    @Operation(summary = "店长登录")
+    @PostMapping("/login")
     public Result<AdminLoginVO>login(@Valid @RequestBody AdminLoginRequest request){
         return Result.ok(adminAuthService.login(request));
     }
