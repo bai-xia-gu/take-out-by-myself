@@ -31,4 +31,38 @@ public interface ShopCategoryMapper {
     void insert(ShopCategory category);
 
 
+    /**
+     * 校验分类是否存在
+     */
+    ShopCategory selectByIdAndShop(@Param("shopId") Long shopId,
+                              @Param("categoryId") Long categoryId);
+    /**
+     * 更新分类名称
+     */
+    int updateName(@Param("shopId") Long shopId,
+                    @Param("categoryId") Long categoryId,
+                    @Param("name") String name);
+
+
+    /**
+     * 查询店铺下的所有分类id
+     */
+    List<Long> selectIdsByShop(@Param("shopId") Long shopId);
+
+    /**
+     * 更新分类排序
+     */
+    int updateSort(@Param("shopId") Long shopId,
+                    @Param("categoryId") Long categoryId,
+                    @Param("sort") int sort);
+
+    /**
+     * 查询分类下的商品数量
+     */
+    int countProducts(Long shopId, Long categoryId);
+
+    /**
+     * 软删除分类
+     */
+    void softDelete(Long shopId, Long categoryId);
 }

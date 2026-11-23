@@ -3,13 +3,6 @@
 <mapper namespace="com.baixiagu.takeout.shop.mapper.ShopCategoryMapper">
 
 
-    <!-- 插入分类 -->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into takeout.shop_category (shop_id,name,sort)
-        values (#{shopId},#{name},#{sort})
-    </insert>
-
-
     <!-- 查询店铺下的所有分类，包含分类下的商品数量 -->
     <select id="selectByShop" resultType="com.baixiagu.takeout.merchant.vo.AdminCategoryVO">
 
@@ -46,4 +39,63 @@
         where shop_id = #{shopId}
         and deleted = 0
     </select>
+
+    <!-- 插入分类 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into takeout.shop_category (shop_id,name,sort)
+        values (#{shopId},#{name},#{sort})
+    </insert>
+
+    <!-- 校验分类是否存在 -->
+    <select id="selectByIdAndShop" resultType="com.baixiagu.takeout.shop.entity.ShopCategory">
+        select *
+        from shop_category
+        where id = #{categoryId}
+        and shop_id = #{shopId}
+        and deleted = 0
+    </select>
+
+    <!-- 更新分类名称 -->
+    <update id="updateName">
+        update shop_category
+        set name = #{name}
+        where id = #{categoryId}
+        and shop_id = #{shopId}
+        and deleted = 0
+    </update>
+
+
+    <select id="selectIdsByShop" resultType="java.lang.Long">
+        select id
+        from shop_category
+        where shop_id = #{shopId}
+        and deleted = 0
+        order by sort,id
+    </select>
+
+    <update id="updateSort">
+        update shop_category
+        set sort = #{sort}
+        where id = #{categoryId}
+        and shop_id = #{shopId}
+        and deleted = 0
+    </update>
+
+
+    <select id="countProducts" resultType="java.lang.Integer">
+        select count(*)
+        from product
+        where shop_id = #{shopId}
+        and category_id = #{categoryId}
+        and deleted = 0
+    </select>
+
+    <update id="softDelete">
+        update shop_category
+        set deleted = 1
+        where id = #{categoryId}
+        and shop_id = #{shopId}
+    </update>
+
+
 </mapper>
